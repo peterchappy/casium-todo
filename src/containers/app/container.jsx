@@ -2,12 +2,13 @@ import { always } from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Message, { container, Activate } from 'architecture';
+import { container } from 'architecture';
+import Message, { Activate } from 'architecture/message';
 
 import App from './index.jsx';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/TodoFilters';
 
-class AddToDo extends Message { };
+class AddToDo extends Message {};
 
 const AppViewWrapper = ({emit}) => (
   <App
