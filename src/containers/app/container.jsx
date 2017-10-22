@@ -11,10 +11,7 @@ import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/TodoFilte
 class AddToDo extends Message {};
 
 const AppViewWrapper = ({emit}) => (
-  <App
-    addTodo={emit(AddToDo)}
-    {...props}
-  />
+  <App />
 );
 
 AppViewWrapper.propTypes = {
@@ -39,6 +36,7 @@ export default container({
 
   update: [
     [Activate, state => state],
+    [AddToDo, state => state],
   ],
 
   view: AppViewWrapper,

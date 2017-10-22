@@ -9,7 +9,6 @@ const handleSave = (addTodo, text) => {
 };
 
 const Header = ({ addTodo }) => (
-
   <header className='header'>
     <h1>todos</h1>
     {/* <TodoTextInput
@@ -20,7 +19,11 @@ const Header = ({ addTodo }) => (
 );
 
 Header.propTypes = {
-  addTodo: PropTypes.func.isRequired,
+  addTodo: PropTypes.func,
+};
+
+Header.defaultProps = {
+  addTodo: () => { },
 };
 
 export default Header;
