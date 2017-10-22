@@ -1,0 +1,11 @@
+{
+  "name": "architecture-todo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/peterchappy/architecture-todo.git",
+  "author": "Peter Chapman <tuf21741@temple.edu>",
+  "license": "MIT",
+  "dependencies": {
+    "architecture": "git+https://github.com/ai-labs-team/architecture.git"
+  }
+}
