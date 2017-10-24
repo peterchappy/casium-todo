@@ -2,7 +2,8 @@ import { always } from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { container, Activate, Message } from 'architecture';
+import { container, PARENT } from 'architecture';
+import Message, { Activate } from 'architecture/message';
 
 import MainSection from './index.jsx';
 
@@ -17,6 +18,8 @@ MainSectionViewWrapper.propTypes = {
 
 export default container({
   name: 'MainSectionContainer',
+
+  delegate: PARENT,
 
   update: [
     [Activate, state => state],

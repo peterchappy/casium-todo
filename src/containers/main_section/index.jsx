@@ -33,8 +33,8 @@ const renderFooter = (completedCount, todos, filter) => {
         completedCount={completedCount}
         activeCount={activeCount}
         filter={filter}
-        onClearCompleted={this.handleClearCompleted}
-        onShow={this.handleShow} />
+        onClearCompleted={() => { }}
+        onShow={() => { }} />
     );
   }
 }
@@ -54,7 +54,7 @@ const MainSection = ({ todos, actions, filter}) => {
           <TodoItem key={todo.id} todo={todo} {...actions} />
         )}
       </ul> */}
-      {this.renderFooter(completedCount)}
+      {renderFooter(completedCount, todos, filter)}
     </section>
   );
 }
