@@ -35,7 +35,7 @@ class TodoTextInput extends Component {
         type='text'
         placeholder={this.props.placeholder}
         autoFocus='true'
-        value={this.state.text}
+        value={this.props.text}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onKeyDown={this.handleSubmit} />
@@ -49,6 +49,12 @@ TodoTextInput.propTypes = {
   placeholder: PropTypes.string,
   editing: PropTypes.bool,
   newTodo: PropTypes.bool,
+};
+
+TodoTextInput.defaultProps = {
+  text: '',
+  editing: false,
+  newTodo: false,
 };
 
 export default TodoTextInput;

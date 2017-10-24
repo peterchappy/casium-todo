@@ -12,7 +12,11 @@ const App = ({ todos, actions, addTodo }) => (
 
 App.propTypes = {
   todos: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object
+}
+
+App.defaultProps = {
+  actions: {}
 }
 
 export default App;
