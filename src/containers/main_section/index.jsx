@@ -48,12 +48,12 @@ const MainSection = ({ todos, actions, filter}) => {
 
   return (
     <section className='main'>
-      {/* {this.renderToggleAll(completedCount)}
+      {renderToggleAll(completedCount, todos, actions)}
       <ul className='todo-list'>
         {filteredTodos.map(todo =>
           <TodoItem key={todo.id} todo={todo} {...actions} />
         )}
-      </ul> */}
+      </ul>
       {renderFooter(completedCount, todos, filter)}
     </section>
   );

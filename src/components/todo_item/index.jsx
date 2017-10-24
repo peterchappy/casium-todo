@@ -15,21 +15,21 @@ class TodoItem extends Component {
     } else {
       this.props.editTodo(id, text);
     }
-    this.setState({ editing: false });
+    // this.setState({ editing: false });
   }
 
   render() {
     const { todo, completeTodo, deleteTodo } = this.props;
 
     let element;
-    if (this.state.editing) {
-      element = (
-        <TodoTextInput
-          text={todo.text}
-          editing={this.state.editing}
-          onSave={text => this.handleSave(todo.id, text)} />
-      );
-    } else {
+    // if (this.state.editing) {
+    //   element = (
+    //     <TodoTextInput
+    //       text={todo.text}
+    //       editing={this.state.editing}
+    //       onSave={text => this.handleSave(todo.id, text)} />
+    //   );
+    // } else {
       element = (
         <div className='view'>
           <input
@@ -45,12 +45,12 @@ class TodoItem extends Component {
             onClick={() => deleteTodo(todo.id)} />
         </div>
       );
-    }
+    // }
 
     return (
       <li className={classnames({
         completed: todo.completed,
-        editing: this.state.editing,
+        editing: false,
       })}
       >
         {element}
