@@ -10,8 +10,8 @@ import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/TodoFilte
 
 class AddToDo extends Message {};
 
-const AppViewWrapper = ({emit}) => (
-  <App />
+const AppViewWrapper = ({ emit, todos}) => (
+  <App todos={todos} />
 );
 
 AppViewWrapper.propTypes = {
