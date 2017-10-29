@@ -2,46 +2,45 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-class TodoTextInput extends Component {
 
-  handleSubmit(e){
-    const text = e.target.value.trim();
-    if (e.which === 13) {
-      this.props.onSave(text);
-      if (this.props.newTodo) {
-        this.setState({ text: '' });
-      }
-    }
-  }
-
-  handleChange(e){
-    this.setState({ text: e.target.value });
-  }
-
-  handleBlur(e){
-    if (!this.props.newTodo) {
-      this.props.onSave(e.target.value);
-    }
-  }
-
-  render() {
-    return (
-      <input
-        className={
-          classnames({
-            edit: this.props.editing,
-            'new-todo': this.props.newTodo,
-          })}
-        type='text'
-        placeholder={this.props.placeholder}
-        autoFocus='true'
-        value={this.props.text}
-        onBlur={this.handleBlur}
-        onChange={this.handleChange}
-        onKeyDown={this.handleSubmit} />
-    );
-  }
+const handleSubmit = (e) => {
+  // TODO THIS NEEDS TO BE SWAPPED OUT WITH MESSAGE
+  // const text = e.target.value.trim();
+  // if (e.which === 13) {
+  //   this.props.onSave(text);
+  //   if (this.props.newTodo) {
+  //     this.setState({ text: '' });
+  //   }
+  // }
 }
+
+const handleChange = (e) => {
+  // TODO THIS NEEDS TO BE SWAPPED OUT WITH MESSAGE
+  // this.setState({ text: e.target.value });
+}
+
+const handleBlur = (e) => {
+    // TODO THIS NEEDS TO BE SWAPPED OUT WITH MESSAGE
+  // if (!this.props.newTodo) {
+  //   this.props.onSave(e.target.value);
+  // }
+}
+
+const TodoTextInput = ({ editing, newTodo, placeholder, text }) => (
+  <input
+    className={
+      classnames({
+        edit: editing,
+        'new-todo': newTodo,
+      })}
+    type='text'
+    placeholder={placeholder}
+    autoFocus='true'
+    value={text}
+    onBlur={handleBlur}
+    onChange={handleChange}
+    onKeyDown={handleSubmit} />
+);
 
 TodoTextInput.propTypes = {
   onSave: PropTypes.func.isRequired,
