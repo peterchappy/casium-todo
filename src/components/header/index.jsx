@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TodoTextInput from '../todo_text_input/index.jsx';
+import TodoTextInput from '../../containers/todo_text_input/container.jsx';
 
 const handleSave = (addTodo, text) => {
   if (text.length !== 0) {
@@ -13,8 +13,7 @@ const Header = ({ addTodo }) => (
     <h1>todos</h1>
     <TodoTextInput
       newTodo
-      onSave={text => handleSave(addTodo, text)}
-      placeholder='What needs to be done?' />
+      onSave={text => handleSave(addTodo, text)} />
   </header>
 );
 

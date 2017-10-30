@@ -1,17 +1,20 @@
-import { always } from 'ramda';
+import { always, append } from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { container } from 'architecture';
+import { container, merge } from 'architecture';
 import Message, { Activate } from 'architecture/message';
 
 import App from './index.jsx';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/TodoFilters';
 
-class AddToDo extends Message {};
+class AddTodo extends Message {};
 
-const AppViewWrapper = ({ emit, todos}) => (
-  <App todos={todos} />
+const AppViewWrapper = ({ emit, todos }) => (
+  <App
+    todos={todos}
+    addTodo={emit(AddTodo)}
+  />
 );
 
 AppViewWrapper.propTypes = {
@@ -36,7 +39,8 @@ export default container({
 
   update: [
     [Activate, state => state],
-    [AddToDo, state => state],
+
+    [AddTodo, (state, data) => merge(state, append(data, state.todos))],
   ],
 
   view: AppViewWrapper,

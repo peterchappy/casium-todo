@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import TodoTextInput from '../todo_text_input/index.jsx';
+import TodoTextInput from '../../containers/todo_text_input/container.jsx';
 
 class TodoItem extends Component {
 
