@@ -1,4 +1,4 @@
-import { always } from 'ramda';
+import { always, identity, merge } from 'ramda';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -7,30 +7,14 @@ import Message, { Activate } from 'architecture/message';
 
 import TodoTextInput from './index.jsx';
 
-class TextInputChange extends Message { }
-class AddTodo extends Message { }
+class TextInputChange extends Message {}
+class AddTodo extends Message {}
+class Blur extends Message {}
 
 const handleSave = (addTodo, text) => {
   if (text.length !== 0) {
     addTodo(text);
   }
-};
-
-const TodoTextInputViewWrapper = ({ emit, text, editing, newTodo,
-  placeholder, todoText }) => (
-  <TodoTextInput
-      handleOnBlur={emit(Blur)}
-      onKeyDown={emit(AddTodo)}
-      handleChange={emit(TextInputChange)}
-      text={todoText}
-      editing={editing}
-      newTodo={newTodo}
-      placeholder={placeholder}
-  />
-);
-
-TodoTextInputViewWrapper.propTypes = {
-  emit: PropTypes.func.isRequired,
 };
 
 export default container({
@@ -44,12 +28,24 @@ export default container({
   }),
 
   update: [
-    [Activate, state => state],
+    [Activate, identity],
 
     [TextInputChange, (state, { text }) => merge(state, { todoText: text})],
 
-    [AddTodo, state => sstate], //TODO: Flesh this bad boy out
+    [AddTodo, identity], //TODO: Flesh this bad boy out
+
+    [Blur, identity]
   ],
 
-  view: TodoTextInputViewWrapper,
+  view: ({ emit, text, editing, newTodo, placeholder, todoText }) => (
+    <TodoTextInput
+      handleOnBlur={emit(Blur)}
+      onKeyDown={emit(AddTodo)}
+      handleChange={emit(TextInputChange)}
+      text={todoText}
+      editing={editing}
+      newTodo={newTodo}
+      placeholder={placeholder}
+    />
+  )
 });

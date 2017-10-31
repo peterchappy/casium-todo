@@ -6,10 +6,11 @@
   "author": "Peter Chapman <tuf21741@temple.edu>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --progress --colors",
+    "build": "webpack --display-error-details"
   },
   "dependencies": {
-    "architecture": "git://github.com/ai-labs-team/architecture.git#typescript",
+    "architecture": "git://github.com/ai-labs-team/architecture.git#master",
     "babel-eslint": "7",
     "classnames": "^2.2.5",
     "eslint-config-airbnb": "^16.1.0",

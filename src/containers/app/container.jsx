@@ -10,17 +10,6 @@ import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/TodoFilte
 
 class AddTodo extends Message {};
 
-const AppViewWrapper = ({ emit, todos }) => (
-  <App
-    todos={todos}
-    addTodo={emit(AddTodo)}
-  />
-);
-
-AppViewWrapper.propTypes = {
-  emit: PropTypes.func.isRequired,
-};
-
 const initialState = {
   todos: [
     {
@@ -43,5 +32,10 @@ export default container({
     [AddTodo, (state, data) => merge(state, append(data, state.todos))],
   ],
 
-  view: AppViewWrapper,
+  view: ({ emit, todos }) => (
+    <App
+      todos={todos}
+      addTodo={emit(AddTodo)}
+    />
+  ),
 });

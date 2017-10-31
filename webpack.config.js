@@ -12,6 +12,15 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 
 module.exports = {
   entry: './src/index.js',
+
+  devServer: {
+    inline: true,
+    historyApiFallback: true,
+    disableHostCheck: true,
+  },
+
+  context: path.resolve('.'),
+
   output: {
     path: path.resolve('dist'),
     filename: 'index_bundle.js'
