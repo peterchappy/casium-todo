@@ -11,7 +11,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.tsx',
 
   devServer: {
     inline: true,
@@ -27,16 +27,13 @@ module.exports = {
   },
   module: {
     loaders: [{
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.jsx$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
+      test: /\.[tj]sx?$/,
+      loader: 'awesome-typescript-loader',
+      exclude: /node_modules/
+    }]
   },
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [HtmlWebpackPluginConfig],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
+  }
 }

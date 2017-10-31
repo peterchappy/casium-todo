@@ -1,21 +1,20 @@
 import { always, identity, merge } from 'ramda';
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-import { container, PARENT } from 'architecture';
+import { container } from 'architecture';
 import Message, { Activate } from 'architecture/message';
 
-import TodoTextInput from './index.jsx';
+import TodoTextInput from './index';
 
 class TextInputChange extends Message {}
 class AddTodo extends Message {}
 class Blur extends Message {}
 
-const handleSave = (addTodo, text) => {
-  if (text.length !== 0) {
-    addTodo(text);
-  }
-};
+// const handleSave = (addTodo, text) => {
+//   if (text.length !== 0) {
+//     addTodo(text);
+//   }
+// };
 
 export default container({
   name: 'TodoTextInputContainer',
@@ -30,7 +29,7 @@ export default container({
   update: [
     [Activate, identity],
 
-    [TextInputChange, (state, { text }) => merge(state, { todoText: text})],
+    [TextInputChange, (state, { text }) => merge(state, { todoText: text })],
 
     [AddTodo, identity], //TODO: Flesh this bad boy out
 
@@ -39,8 +38,8 @@ export default container({
 
   view: ({ emit, text, editing, newTodo, placeholder, todoText }) => (
     <TodoTextInput
-      handleOnBlur={emit(Blur)}
-      onKeyDown={emit(AddTodo)}
+      handleBlur={emit(Blur)}
+      handleSubmit={emit(AddTodo)}
       handleChange={emit(TextInputChange)}
       text={todoText}
       editing={editing}

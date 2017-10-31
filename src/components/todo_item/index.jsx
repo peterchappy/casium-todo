@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import TodoTextInput from '../../containers/todo_text_input/container.jsx';
+import * as React from 'react';
+import * as classnames from 'classnames';
+import TodoTextInput from '../../containers/todo_text_input/container';
 
-class TodoItem extends Component {
+class TodoItem extends React.Component {
 
   handleDoubleClick() {
     this.setState({ editing: true });
@@ -59,11 +58,11 @@ class TodoItem extends Component {
   }
 }
 
-TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired,
-  editTodo: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired,
-  completeTodo: PropTypes.func.isRequired,
-}
+// TodoItem.propTypes = {
+//   todo: PropTypes.object.isRequired,
+//   editTodo: PropTypes.func.isRequired,
+//   deleteTodo: PropTypes.func.isRequired,
+//   completeTodo: PropTypes.func.isRequired,
+// }
 
 export default TodoItem;

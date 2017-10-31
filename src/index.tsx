@@ -1,8 +1,7 @@
-import R from 'ramda';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-import AppContainer from './containers/app/container.jsx';
+import AppContainer from './containers/app/container';
 
 const Main = () => <AppContainer />;
 
