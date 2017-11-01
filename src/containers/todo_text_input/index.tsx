@@ -17,7 +17,7 @@ export default ({
     autoFocus={true}
     value={text}
     onBlur={!newTodo && handleBlur}
-    onChange={handleChange}
+    onChange={e => handleChange({value: e.target.value})}
     onKeyDown={e => e.which === 13 && handleSubmit()}
   />
 );

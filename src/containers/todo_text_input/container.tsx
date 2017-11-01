@@ -1,4 +1,4 @@
-import { always, identity, merge } from 'ramda';
+import { always, identity, is } from 'ramda';
 import * as React from 'react';
 
 import { container } from 'architecture';
@@ -6,7 +6,10 @@ import Message, { Activate } from 'architecture/message';
 
 import TodoTextInput from './index';
 
-class TextInputChange extends Message {}
+class TextInputChange extends Message {
+  public static expects = { value: is(String) };
+}
+
 class AddTodo extends Message {}
 class Blur extends Message {}
 
@@ -29,7 +32,7 @@ export default container({
   update: [
     [Activate, identity],
 
-    [TextInputChange, (state, { text }) => merge(state, { todoText: text })],
+    [TextInputChange, (state, { text }) => [state, console.log(state)]],
 
     [AddTodo, identity], //TODO: Flesh this bad boy out
 
@@ -40,7 +43,7 @@ export default container({
     <TodoTextInput
       handleBlur={emit(Blur)}
       handleSubmit={emit(AddTodo)}
-      handleChange={emit(TextInputChange)}
+      handleChange={emit(AddTodo)}
       text={todoText}
       editing={editing}
       newTodo={newTodo}

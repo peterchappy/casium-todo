@@ -9,6 +9,8 @@ import App from './index';
 
 class AddTodo extends Message {};
 class SaveTodo extends Message {};
+class DeleteTodo extends Message {};
+class CompleteTodo extends Message {};
 
 export default container({
   name: 'AppContainer',
@@ -30,13 +32,20 @@ export default container({
     [AddTodo, (state, data) => mergeDeep(state, append(data, state.todos))],
 
     [SaveTodo, identity],
+
+    [DeleteTodo, identity],
+
+    [CompleteTodo, identity],
   ],
 
   view: ({ emit, todos }) => (
     <App
       todos={todos}
       addTodo={emit(AddTodo)}
-      saveTodo={emit(SaveTodo)}
+      actions={{
+        deleteTodo: emit(DeleteTodo),
+        completeTodo: emit(CompleteTodo),
+      }}
     />
   ),
 });

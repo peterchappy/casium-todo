@@ -23,7 +23,7 @@ const renderToggleAll = (completedCount, todos, actions) => (
   )
 );
 
-const renderFooter = (completedCount, todos, filter) => {
+const renderFooter = (completedCount, todos, filter, onShow) => {
   const activeCount = todos.length - completedCount;
 
   return !todos.length ? null : (
@@ -32,11 +32,11 @@ const renderFooter = (completedCount, todos, filter) => {
       activeCount={activeCount}
       filter={filter}
       onClearCompleted={() => { }}
-      onShow={() => { }} />
+      onShow={onShow} />
   );
 }
 
-export default ({ todos, actions, filter }) => {
+export default ({ todos, actions, filter, onShow }) => {
   const filteredTodos = todos.filter(TODO_FILTERS[filter]);
   const completedCount = todos.reduce((count, todo) => todo.completed ? count + 1 : count, 0);
 
@@ -48,7 +48,7 @@ export default ({ todos, actions, filter }) => {
           <TodoItem key={todo.id} todo={todo} {...actions} />
         )}
       </ul>
-      {renderFooter(completedCount, todos, filter)}
+      {renderFooter(completedCount, todos, filter, onShow)}
     </section>
   );
 }
