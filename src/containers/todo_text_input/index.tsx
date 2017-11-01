@@ -1,23 +1,14 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
+import { when, propEq } from 'ramda';
 
-export default ({
-  editing = false,
-  newTodo = false,
-  placeholder,
-  text = '',
-  handleBlur,
-  handleChange,
-  handleSubmit
-}) => (
+export default ({ editing = false, newTodo = false, placeholder, value = '', onBlur, onChange, onSubmit }) => (
   <input
     className={classnames({ edit: editing, 'new-todo': newTodo })}
     type='text'
-    placeholder={placeholder}
+    { ...{ value, placeholder, onBlur, onChange } }
     autoFocus={true}
-    value={text}
     onBlur={!newTodo && handleBlur}
-    onChange={e => handleChange({value: e.target.value})}
-    onKeyDown={e => e.which === 13 && handleSubmit()}
+    onKeyDown={when(propEq('which', 13), onSubmit)}
   />
 );

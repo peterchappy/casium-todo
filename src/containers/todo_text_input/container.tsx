@@ -1,4 +1,4 @@
-import { always, identity, is } from 'ramda';
+import { always, identity, is, merge } from 'ramda';
 import * as React from 'react';
 
 import { container } from 'architecture';
@@ -25,14 +25,14 @@ export default container({
 
   init: always({
     placeholder: 'What needs to be done?',
-    todoText: '',
+    text: '',
     newTodo: true, //TODO make this a prop
   }),
 
   update: [
     [Activate, identity],
 
-    [TextInputChange, (state, { text }) => [state, console.log(state)]],
+    [TextInputChange, (state, { value }) => merge(state, { text: value })],
 
     [AddTodo, identity], //TODO: Flesh this bad boy out
 
@@ -41,10 +41,10 @@ export default container({
 
   view: ({ emit, text, editing, newTodo, placeholder, todoText }) => (
     <TodoTextInput
-      handleBlur={emit(Blur)}
-      handleSubmit={emit(AddTodo)}
-      handleChange={emit(AddTodo)}
-      text={todoText}
+      onBlur={emit(Blur)}
+      onSubmit={emit(AddTodo)}
+      onChange={emit(TextInputChange)}
+      value={text}
       editing={editing}
       newTodo={newTodo}
       placeholder={placeholder}
