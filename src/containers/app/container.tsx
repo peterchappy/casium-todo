@@ -30,7 +30,15 @@ export default container({
   update: [
     [Activate, identity],
 
-    [AddTodo, (state, { value }) => evolve({ todos: append(path(['todo_input'], state)) }, state)],
+    [AddTodo, (state) => evolve({
+      todos: append(path(['todo_input'], state)),
+      todo_input: always({
+        placeholder: 'What needs to be done?',
+        text: '',
+        isNew: true,
+        completed: false,
+      })
+    }, state)],
 
     [SaveTodo, identity],
 
