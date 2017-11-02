@@ -26,7 +26,7 @@ export default container({
   init: always({
     placeholder: 'What needs to be done?',
     text: '',
-    newTodo: true, //TODO make this a prop
+    isNew: true
   }),
 
   update: [
@@ -39,14 +39,14 @@ export default container({
     [Blur, identity]
   ],
 
-  view: ({ emit, text, editing, newTodo, placeholder, todoText }) => (
+  view: ({ emit, text, editing, isNew, placeholder, todoText }) => (
     <TodoTextInput
-      onBlur={emit(Blur)}
+      onBlur={text && emit(Blur) || undefined}
       onSubmit={emit(AddTodo)}
       onChange={emit(TextInputChange)}
       value={text}
       editing={editing}
-      newTodo={newTodo}
+      isNew={isNew}
       placeholder={placeholder}
     />
   )
