@@ -10,14 +10,7 @@ class TextInputChange extends Message {
   public static expects = { value: is(String) };
 }
 
-class AddTodo extends Message {}
-class Blur extends Message {}
-
-// const handleSave = (addTodo, text) => {
-//   if (text.length !== 0) {
-//     addTodo(text);
-//   }
-// };
+class Blur extends Message { }
 
 export default container({
   name: 'TodoTextInputContainer',
@@ -26,7 +19,8 @@ export default container({
   init: always({
     placeholder: 'What needs to be done?',
     text: '',
-    isNew: true
+    isNew: true,
+    completed: false,
   }),
 
   update: [
@@ -34,15 +28,13 @@ export default container({
 
     [TextInputChange, (state, { value }) => merge(state, { text: value })],
 
-    [AddTodo, identity], //TODO: Flesh this bad boy out
-
     [Blur, identity]
   ],
 
-  view: ({ emit, text, editing, isNew, placeholder, todoText }) => (
+  view: ({ emit, text, editing, isNew, placeholder, todoText, onSubmit }) => (
     <TodoTextInput
       onBlur={text && emit(Blur) || undefined}
-      onSubmit={emit(AddTodo)}
+      onSubmit={onSubmit}
       onChange={emit(TextInputChange)}
       value={text}
       editing={editing}

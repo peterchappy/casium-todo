@@ -1,13 +1,14 @@
-import { always, append, identity } from 'ramda';
+import { always, append, identity, pipe, merge, path, evolve} from 'ramda';
 import * as React from 'react';
 
-import { container, mergeDeep } from 'architecture';
+import { container } from 'architecture';
 import Message, { Activate } from 'architecture/message';
 
 import { TodoFilter/*, TodoAppModel*/ } from './model';
 import App from './index';
 
 class AddTodo extends Message {};
+
 class SaveTodo extends Message {};
 class DeleteTodo extends Message {};
 class CompleteTodo extends Message {};
@@ -18,7 +19,7 @@ export default container({
   init: always({
     todos: [
       {
-        text: 'Use Architecture',
+        text: 'Use Architecture', // TODO make this value
         completed: false,
         id: 0,
       },
@@ -29,7 +30,7 @@ export default container({
   update: [
     [Activate, identity],
 
-    [AddTodo, (state, data) => mergeDeep(state, append(data, state.todos))],
+    [AddTodo, (state, { value }) => evolve({ todos: append(path(['todo_input'], state)) }, state)],
 
     [SaveTodo, identity],
 
