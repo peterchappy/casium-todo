@@ -8,15 +8,11 @@ const FILTER_TITLES = {
   [TodoFilter.ShowCompleted]: 'Completed',
 };
 
-const renderTodoCount = (activeCount) => {
-  const itemWord = activeCount === 1 ? 'item' : 'items';
-
-  return (
-    <span className='todo-count'>
-      <strong>{activeCount || 'No'}</strong> {itemWord} left
-    </span>
-  );
-};
+const renderTodoCount = (count) => (
+  <span className='todo-count'>
+    <strong>{count || 'No'}</strong> {`item${count === 1 ? '' : 's'}`} left
+  </span>
+);
 
 const renderFilterLink = (filter, onShow, selectedFilter) => {
   const title = FILTER_TITLES[filter];
