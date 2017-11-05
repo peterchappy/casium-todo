@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { always, propEq } from 'ramda';
 
-import TodoItem from '../../components/todo_item';
-import Footer from '../../components/footer';
-import { TodoFilter } from '../app/model';
+import TodoItem from '../../components/todo_item/';
+import Footer from '../../components/footer/';
+import { TodoFilter, Todo } from '../../containers/app/model';
 
 const TODO_FILTERS = {
   [TodoFilter.ShowAll]: always(true),
@@ -36,10 +36,16 @@ const renderFooter = (completedCount, todos, filter, onShow) => {
   );
 }
 
-export default ({ todos, actions, filter, onShow }) => {
+type MainSectionProps = {
+  todos: Array<Todo>;
+  actions: Object;
+  filter: TodoFilter;
+  onShow: () => any;
+};
+
+export default ({ todos, actions, filter, onShow }: MainSectionProps) => {
   const filteredTodos = todos.filter(TODO_FILTERS[filter]);
   const completedCount = todos.reduce((count, todo) => todo.completed ? count + 1 : count, 0);
-
   return (
     <section className='main'>
       {renderToggleAll(completedCount, todos, actions)}

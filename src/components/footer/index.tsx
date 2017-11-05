@@ -14,18 +14,15 @@ const renderTodoCount = (count) => (
   </span>
 );
 
-const renderFilterLink = (filter, onShow, selectedFilter) => {
-  const title = FILTER_TITLES[filter];
-  return (
-    <a
-      className={classnames({ selected: filter === selectedFilter })}
-      style={{ cursor: 'pointer' }}
-      onClick={() => onShow(filter)}
-    >
-      {title}
-    </a>
-  );
-};
+const renderFilterLink = (filter, onShow, selectedFilter) =>(
+  <a
+    className={classnames({ selected: filter === selectedFilter })}
+    style={{ cursor: 'pointer' }}
+    onClick={() => onShow({ value: filter })}
+  >
+    {FILTER_TITLES[filter]}
+  </a>
+);
 
 const renderClearButton = ( completedCount, onClearCompleted ) => (
   (completedCount === 0) ? null : (

@@ -1,4 +1,4 @@
-import { always, append, identity, pipe, merge, path, evolve} from 'ramda';
+import { always, append, identity, is, mergeDeepRight, path, evolve, complement, pipe, indexOf, lensPath} from 'ramda';
 import * as React from 'react';
 
 import { container } from 'architecture';
@@ -9,9 +9,17 @@ import App from './index';
 
 class AddTodo extends Message {};
 
-class SaveTodo extends Message {};
-class DeleteTodo extends Message {};
-class CompleteTodo extends Message {};
+class SaveTodo extends Message { };
+
+class ShowFilter extends Message {};
+
+class DeleteTodo extends Message {
+  public static expects = { value: is(Number) };
+};
+
+class CompleteTodo extends Message {
+  public static expects = { value: is(Number) };
+};
 
 export default container({
   name: 'AppContainer',
@@ -40,14 +48,16 @@ export default container({
       })
     }, state)],
 
-    [SaveTodo, identity],
+    [CompleteTodo, (state, { index }) => evolve({ todos: pipe(indexOf(index), lensPath(['completed']))}, state)],
 
     [DeleteTodo, identity],
 
-    [CompleteTodo, identity],
+    [SaveTodo, identity],
+
+    [ShowFilter, (state, { value }) => mergeDeepRight(state, { filter: value })],
   ],
 
-  view: ({ emit, todos }) => (
+  view: ({ emit, todos, filter }) => (
     <App
       todos={todos}
       addTodo={emit(AddTodo)}
@@ -55,6 +65,8 @@ export default container({
         deleteTodo: emit(DeleteTodo),
         completeTodo: emit(CompleteTodo),
       }}
+      onShow={emit(ShowFilter)}
+      filter={filter}
     />
   ),
 });
