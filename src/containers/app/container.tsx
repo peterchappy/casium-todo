@@ -1,4 +1,8 @@
-import { always, append, identity, is, mergeDeepRight, path, evolve, complement, pipe, indexOf, lensPath} from 'ramda';
+import {
+  always, append, identity, is, mergeDeepRight,
+  path, evolve, complement, pipe, indexOf, lensPath,
+  propEq, filter,
+} from 'ramda';
 import * as React from 'react';
 
 import { container } from 'architecture';
@@ -29,7 +33,7 @@ export default container({
   init: always({
     todos: [
       {
-        text: 'Use Architecture', // TODO make this value
+        text: 'Use Architecture',
         completed: false,
         id: createTodoId(),
       },
@@ -53,7 +57,7 @@ export default container({
 
     [CompleteTodo, (state, { index }) => evolve({ todos: pipe(indexOf(index), lensPath(['completed']))}, state)],
 
-    [DeleteTodo, identity],
+    [DeleteTodo, (state, { value }) => evolve({ todos: filter(complement(propEq('id', value)))}, state)],
 
     [SaveTodo, identity],
 

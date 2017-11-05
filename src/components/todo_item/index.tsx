@@ -4,7 +4,6 @@ import TodoTextInput from '../../containers/todo_text_input/container';
 import { Todo } from '../../containers/app/model';
 
 const createElement = (todo, completeTodo, deleteTodo, addTodo, editingTodo, editing ) => {
-
   if (editing) {
     return(
       <TodoTextInput
@@ -26,7 +25,7 @@ const createElement = (todo, completeTodo, deleteTodo, addTodo, editingTodo, edi
       </label>
       <button
         className='destroy'
-        onClick={() => deleteTodo({value: todo.id})} />
+        onClick={() => deleteTodo({ value: todo.id})} />
     </div>
   );
 }
