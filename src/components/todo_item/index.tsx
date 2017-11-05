@@ -19,7 +19,7 @@ const createElement = (todo, completeTodo, deleteTodo, addTodo, editingTodo, edi
         className='toggle'
         type='checkbox'
         checked={todo.completed}
-        onChange={() => completeTodo()} />
+        onChange={() => completeTodo({ value: todo.id })} />
       <label onDoubleClick={editingTodo}>
         {todo.text}
       </label>

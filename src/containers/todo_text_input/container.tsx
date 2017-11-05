@@ -16,13 +16,6 @@ export default container({
   name: 'TodoTextInputContainer',
   delegate: 'todo_input',
 
-  init: always({
-    placeholder: 'What needs to be done?',
-    text: '',
-    isNew: true,
-    completed: false,
-  }),
-
   update: [
     [Activate, identity],
 

@@ -1,7 +1,7 @@
 import {
   always, append, identity, is, mergeDeepRight,
-  path, evolve, complement, pipe, indexOf, lensPath,
-  propEq, filter,
+  path, evolve, complement, cond, not,
+  propEq, filter, map, T
 } from 'ramda';
 import * as React from 'react';
 
@@ -12,8 +12,6 @@ import { TodoFilter/*, TodoAppModel*/ } from './model';
 import App from './index';
 
 class AddTodo extends Message {};
-
-class SaveTodo extends Message { };
 
 class ShowFilter extends Message {};
 
@@ -39,6 +37,13 @@ export default container({
       },
     ],
     filter: TodoFilter.ShowAll,
+    todo_input: {
+      placeholder: 'What needs to be done?',
+      text: '',
+      isNew: true,
+      completed: false,
+      id: createTodoId(),
+    },
   }),
 
   update: [
@@ -55,11 +60,14 @@ export default container({
       })
     }, state)],
 
-    [CompleteTodo, (state, { index }) => evolve({ todos: pipe(indexOf(index), lensPath(['completed']))}, state)],
+    [CompleteTodo, (state, { value }) => evolve({
+      todos: map(cond([
+              [propEq('id', value), evolve({ completed: not })],
+              [T, identity]
+            ]))
+    }, state)],
 
     [DeleteTodo, (state, { value }) => evolve({ todos: filter(complement(propEq('id', value)))}, state)],
-
-    [SaveTodo, identity],
 
     [ShowFilter, (state, { value }) => mergeDeepRight(state, { filter: value })],
   ],
