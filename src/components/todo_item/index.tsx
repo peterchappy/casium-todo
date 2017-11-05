@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import TodoTextInput from '../../containers/todo_text_input/container';
+import { Todo } from '../../containers/app/model';
 
 const createElement = (todo, completeTodo, deleteTodo, addTodo, editingTodo, editing ) => {
 
@@ -32,7 +33,7 @@ const createElement = (todo, completeTodo, deleteTodo, addTodo, editingTodo, edi
 
 
 type TodoItemProps = {
-  todo?: Object;
+  todo?: Todo;
   deleteTodo?: () => any;
   completeTodo?: () => any;
   editingTodo?: () => any;
@@ -41,7 +42,7 @@ type TodoItemProps = {
 
 export default ({ todo, deleteTodo, completeTodo, addTodo = () => { }, editingTodo = () => { }}: TodoItemProps) => (
     <li className={classnames({
-      completed: true, //todo.completed ||
+    completed: todo.completed, //todo.completed ||
       editing: false,
     })}
     >
