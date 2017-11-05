@@ -21,6 +21,8 @@ class CompleteTodo extends Message {
   public static expects = { value: is(Number) };
 };
 
+const createTodoId = () => new Date().valueOf();
+
 export default container({
   name: 'AppContainer',
 
@@ -29,7 +31,7 @@ export default container({
       {
         text: 'Use Architecture', // TODO make this value
         completed: false,
-        id: 0,
+        id: createTodoId(),
       },
     ],
     filter: TodoFilter.ShowAll,
@@ -45,6 +47,7 @@ export default container({
         text: '',
         isNew: true,
         completed: false,
+        id: createTodoId(),
       })
     }, state)],
 

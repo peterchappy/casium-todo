@@ -26,7 +26,7 @@ const createElement = (todo, completeTodo, deleteTodo, addTodo, editingTodo, edi
       </label>
       <button
         className='destroy'
-        onClick={() => deleteTodo()} />
+        onClick={() => deleteTodo({value: todo.id})} />
     </div>
   );
 }
