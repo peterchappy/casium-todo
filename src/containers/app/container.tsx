@@ -13,7 +13,9 @@ import App from './index';
 
 class AddTodo extends Message {};
 
-class ShowFilter extends Message {};
+class ShowFilter extends Message { };
+
+class ClearCompleted extends Message {};
 
 class DeleteTodo extends Message {
   public static expects = { value: is(Number) };
@@ -67,7 +69,9 @@ export default container({
             ]))
     }, state)],
 
-    [DeleteTodo, (state, { value }) => evolve({ todos: filter(complement(propEq('id', value)))}, state)],
+    [DeleteTodo, (state, { value }) => evolve({ todos: filter(complement(propEq('id', value))) }, state)],
+
+    [ClearCompleted, evolve({ todos: filter(propEq('completed', false))})],
 
     [ShowFilter, (state, { value }) => mergeDeepRight(state, { filter: value })],
   ],
@@ -80,6 +84,7 @@ export default container({
         deleteTodo: emit(DeleteTodo),
         completeTodo: emit(CompleteTodo),
       }}
+      clearCompleted={emit(ClearCompleted)}
       onShow={emit(ShowFilter)}
       filter={filter}
     />

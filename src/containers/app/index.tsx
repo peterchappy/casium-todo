@@ -9,12 +9,13 @@ type AppProps = {
   addTodo: () => any,
   actions: Object,
   onShow: () => any,
+  clearCompleted: () => any,
   filter: TodoFilter,
 };
 
-export default ({ todos, actions = {}, filter, onShow, addTodo }: AppProps) => (
+export default ({ todos, actions = {}, filter, onShow, addTodo, clearCompleted }: AppProps) => (
   <div>
     <Header addTodo={addTodo} />
-    <MainSection { ...{ todos, actions, filter, onShow} } />
+    <MainSection { ...{ todos, actions, filter, onShow, clearCompleted} } />
   </div>
 );

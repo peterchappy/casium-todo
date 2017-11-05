@@ -24,11 +24,11 @@ const renderFilterLink = (filter, onShow, selectedFilter) =>(
   </a>
 );
 
-const renderClearButton = ( completedCount, onClearCompleted ) => (
-  (completedCount === 0) ? null : (
+const renderClearButton = (completedCount, clearCompleted ) => (
+  completedCount === 0 ? null : (
     <button
       className='clear-completed'
-      onClick={onClearCompleted}
+      onClick={clearCompleted}
     >Clear completed</button>
   )
 );
@@ -37,11 +37,11 @@ type FooterProps = {
   completedCount: number;
   activeCount: number;
   filter: TodoFilter;
-  onClearCompleted: () => any;
+  clearCompleted: () => any;
   onShow: () => any;
 };
 
-export default ({ completedCount, onClearCompleted, activeCount, filter, onShow }: FooterProps) => (
+export default ({ completedCount, clearCompleted, activeCount, filter, onShow }: FooterProps) => (
   <footer className='footer'>
     {renderTodoCount(activeCount)}
     <ul className='filters'>
@@ -49,6 +49,6 @@ export default ({ completedCount, onClearCompleted, activeCount, filter, onShow 
         (<li key={type}>{renderFilterLink(type, onShow, filter)}</li>)
       )}
     </ul>
-    {renderClearButton(completedCount, onClearCompleted)}
+    {renderClearButton(completedCount, clearCompleted)}
   </footer>
 );
