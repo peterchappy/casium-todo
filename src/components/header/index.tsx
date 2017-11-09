@@ -5,9 +5,11 @@ type HeaderProps = {
   addTodo?: () => any;
 }
 
+const placeholder = 'What needs to be done?';
+
 export default ({ addTodo }: HeaderProps) => (
   <header className='header'>
     <h1>todos</h1>
-    <TodoTextInput newTodo onSubmit={addTodo} />
+    <TodoTextInput isNew placeholder={placeholder} onSubmit={addTodo} />
   </header>
 );

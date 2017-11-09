@@ -1,8 +1,8 @@
-import { always, identity, is, merge } from 'ramda';
+import { identity, is, merge } from 'ramda';
 import * as React from 'react';
 
 import { container } from 'architecture';
-import Message, { Activate } from 'architecture/message';
+import Message from 'architecture/message';
 
 import TodoTextInput from './index';
 
@@ -17,14 +17,12 @@ export default container({
   delegate: 'todo_input',
 
   update: [
-    [Activate, identity],
-
     [TextInputChange, (state, { value }) => merge(state, { text: value })],
 
     [Blur, identity]
   ],
 
-  view: ({ emit, text, editing, isNew, placeholder, todoText, onSubmit }) => (
+  view: ({ emit, text, editing, isNew, placeholder, todoText, onSubmit = () => {} }) => (
     <TodoTextInput
       onBlur={text && emit(Blur) || undefined}
       onSubmit={onSubmit}

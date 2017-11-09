@@ -6,7 +6,12 @@ export type Todo = {
   completed: boolean;
 };
 
+export type TodoInput = {
+  text: string;
+};
+
 export type TodoAppModel = {
   todos: Todo[];
   filter: TodoFilter;
+  todo_input: TodoInput;
 };

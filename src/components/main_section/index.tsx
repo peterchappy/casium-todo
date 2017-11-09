@@ -51,8 +51,8 @@ export default ({ todos, actions, filter, onShow, clearCompleted }: MainSectionP
     <section className='main'>
       {renderToggleAll(completedCount, todos, actions)}
       <ul className='todo-list'>
-        {filteredTodos.map(todo =>
-          <TodoItem key={todo.id} todo={todo} {...actions} />
+        {filteredTodos.map((todo, i) =>
+          <TodoItem delegate={['todos', i]} key={todo.id} todo={todo} {...actions} />
         )}
       </ul>
       {renderFooter(completedCount, todos, filter, onShow, clearCompleted)}

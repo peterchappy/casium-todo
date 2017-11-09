@@ -1,6 +1,6 @@
 import {
   always, append, identity, is, mergeDeepRight,
-  path, evolve, complement, cond, not,
+  evolve, complement, cond, not,
   propEq, filter, map, T
 } from 'ramda';
 import * as React from 'react';
@@ -8,7 +8,7 @@ import * as React from 'react';
 import { container } from 'architecture';
 import Message, { Activate } from 'architecture/message';
 
-import { TodoFilter/*, TodoAppModel*/ } from './model';
+import { TodoFilter, TodoAppModel } from './model';
 import App from './index';
 
 class AddTodo extends Message {};
@@ -25,7 +25,15 @@ class CompleteTodo extends Message {
   public static expects = { value: is(Number) };
 };
 
+class EditTodo extends Message {
+  public static expects = { value: is(Number) };
+};
+
 const createTodoId = () => new Date().valueOf();
+
+const emptyInput = {
+  text: '',
+},
 
 export default container({
   name: 'AppContainer',
@@ -35,45 +43,50 @@ export default container({
       {
         text: 'Use Architecture',
         completed: false,
+        editing: false,
         id: createTodoId(),
       },
     ],
     filter: TodoFilter.ShowAll,
-    todo_input: {
-      placeholder: 'What needs to be done?',
-      text: '',
-      isNew: true,
-      completed: false,
-      id: createTodoId(),
-    },
+    todo_input: emptyInput,
   }),
 
   update: [
     [Activate, identity],
 
-    [AddTodo, (state) => evolve({
-      todos: append(path(['todo_input'], state)),
-      todo_input: always({
-        placeholder: 'What needs to be done?',
-        text: '',
-        isNew: true,
+    [AddTodo, (state: TodoAppModel) => evolve({
+      todos: append({
+        text: state.todo_input.text,
         completed: false,
+        editing: false,
         id: createTodoId(),
-      })
+      }),
+      todo_input: always(emptyInput)
     }, state)],
 
-    [CompleteTodo, (state, { value }) => evolve({
+    [CompleteTodo, (state: TodoAppModel, { value }) => evolve({
       todos: map(cond([
               [propEq('id', value), evolve({ completed: not })],
               [T, identity]
             ]))
     }, state)],
 
-    [DeleteTodo, (state, { value }) => evolve({ todos: filter(complement(propEq('id', value))) }, state)],
+    [DeleteTodo, (state: TodoAppModel, { value }) => evolve({
+      todos: filter(complement(propEq('id', value)))
+    }, state)],
 
-    [ClearCompleted, evolve({ todos: filter(propEq('completed', false))})],
+    [EditTodo, (state: TodoAppModel, { value }) => evolve({
+      todos: map(cond([
+        [propEq('id', value), evolve({ editing: not })],
+        [T, identity]
+      ]))
+    }, state)],
 
-    [ShowFilter, (state, { value }) => mergeDeepRight(state, { filter: value })],
+    [ClearCompleted, evolve({
+      todos: filter(propEq('completed', false))
+    })],
+
+    [ShowFilter, (state: TodoAppModel, { value }) => mergeDeepRight(state, { filter: value })],
   ],
 
   view: ({ emit, todos, filter }) => (
@@ -83,6 +96,7 @@ export default container({
       actions={{
         deleteTodo: emit(DeleteTodo),
         completeTodo: emit(CompleteTodo),
+        editTodo: emit(EditTodo),
       }}
       clearCompleted={emit(ClearCompleted)}
       onShow={emit(ShowFilter)}
