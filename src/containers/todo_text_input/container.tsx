@@ -1,4 +1,4 @@
-import { identity, is, merge } from 'ramda';
+import { is, merge } from 'ramda';
 import * as React from 'react';
 
 import { container } from 'architecture';
@@ -10,8 +10,6 @@ class TextInputChange extends Message {
   public static expects = { value: is(String) };
 }
 
-class Blur extends Message { }
-
 export default container({
   name: 'TodoTextInputContainer',
 
@@ -19,19 +17,14 @@ export default container({
 
   update: [
     [TextInputChange, (state, { value }) => merge(state, { text: value })],
-
-    [Blur, identity]
   ],
 
-  view: ({ emit, text, editing, isNew, placeholder, todoText, onSubmit = () => {} }) => (
+  view: ({ emit, text, editing, isNew, placeholder, todoText, onBlur = () => { }, onSubmit = () => {} }) => (
     <TodoTextInput
-      onBlur={text && emit(Blur) || undefined}
       onSubmit={onSubmit}
       onChange={emit(TextInputChange)}
       value={text}
-      editing={editing}
-      isNew={isNew}
-      placeholder={placeholder}
+      {...{ placeholder, isNew, editing}}
     />
   )
 });

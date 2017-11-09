@@ -12,7 +12,7 @@ import App from './index';
 
 class AddTodo extends Message {};
 
-class ShowFilter extends Message { };
+class ShowFilter extends Message {};
 
 class ClearCompleted extends Message {};
 
