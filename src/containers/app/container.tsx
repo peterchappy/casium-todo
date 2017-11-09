@@ -1,7 +1,6 @@
 import {
   always, append, identity, is, mergeDeepRight,
-  evolve, complement, cond, not,
-  propEq, filter, map, T
+  evolve, cond, not, propEq, filter, map, T, reject
 } from 'ramda';
 import * as React from 'react';
 
@@ -33,7 +32,7 @@ const createTodoId = () => new Date().valueOf();
 
 const emptyInput = {
   text: '',
-},
+};
 
 export default container({
   name: 'AppContainer',
@@ -72,7 +71,7 @@ export default container({
     }, state)],
 
     [DeleteTodo, (state: TodoAppModel, { value }) => evolve({
-      todos: filter(complement(propEq('id', value)))
+      todos: reject(propEq('id', value))
     }, state)],
 
     [EditTodo, (state: TodoAppModel, { value }) => evolve({

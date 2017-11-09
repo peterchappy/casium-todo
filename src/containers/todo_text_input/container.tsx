@@ -14,6 +14,7 @@ class Blur extends Message { }
 
 export default container({
   name: 'TodoTextInputContainer',
+
   delegate: 'todo_input',
 
   update: [
