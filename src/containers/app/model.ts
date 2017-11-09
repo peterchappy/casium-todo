@@ -4,6 +4,7 @@ export type Todo = {
   id: number;
   text: string;
   completed: boolean;
+  editing: boolean;
 };
 
 export type TodoInput = {

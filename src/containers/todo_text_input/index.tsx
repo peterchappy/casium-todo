@@ -15,8 +15,8 @@ export default ({ editing = false, isNew = false, placeholder, value = '', onBlu
   <input
     type='text'
     className={classnames({ edit: editing, 'new-todo': isNew })}
-    { ...{ value, placeholder, onBlur, onChange } }
     autoFocus
     onKeyDown={e => e.which === 13 && onSubmit()}
+    { ...{ value, placeholder, onBlur, onChange } }
   />
 );

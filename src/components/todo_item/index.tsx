@@ -9,8 +9,9 @@ const createElement = (todo, completeTodo, deleteTodo, editTodo, delegate) => {
       <TodoTextInput
         text={todo.text}
         editing
-        delegate={['todos', 0]}
-        onSave={() => editTodo({ value: todo.id })}
+        delegate={delegate}
+        onBlur={() => editTodo({ value: todo.id })}
+        onSubmit={() => editTodo({ value: todo.id })}
       />
     );
   }
@@ -42,7 +43,7 @@ type TodoItemProps = {
 }
 
 export default ({ todo, deleteTodo, completeTodo, editTodo = () => { }, delegate }: TodoItemProps) => (
-    <li className={classnames({ completed: todo.completed, editing: false })}>
+    <li className={classnames({ completed: todo.completed, editing: todo.editing })}>
     {createElement(todo, completeTodo, deleteTodo, editTodo, delegate )}
     </li>
 );

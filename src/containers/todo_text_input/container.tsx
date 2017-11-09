@@ -24,7 +24,7 @@ export default container({
       onSubmit={onSubmit}
       onChange={emit(TextInputChange)}
       value={text}
-      {...{ placeholder, isNew, editing}}
+      {...{ placeholder, isNew, editing, onBlur}}
     />
   )
 });
