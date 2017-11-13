@@ -34,7 +34,7 @@ const emptyInput = {
   text: '',
 };
 
-export default container({
+export default container<TodoAppModel>({
   name: 'AppContainer',
 
   init: always({
@@ -53,7 +53,7 @@ export default container({
   update: [
     [Activate, identity],
 
-    [AddTodo, (state: TodoAppModel) => evolve({
+    [AddTodo, state => evolve({
       todos: append({
         text: state.todo_input.text,
         completed: false,
@@ -63,18 +63,18 @@ export default container({
       todo_input: always(emptyInput)
     }, state)],
 
-    [CompleteTodo, (state: TodoAppModel, { value }) => evolve({
+    [CompleteTodo, (state, { value }) => evolve({
       todos: map(cond([
               [propEq('id', value), evolve({ completed: not })],
               [T, identity]
             ]))
     }, state)],
 
-    [DeleteTodo, (state: TodoAppModel, { value }) => evolve({
+    [DeleteTodo, (state, { value }) => evolve({
       todos: reject(propEq('id', value))
     }, state)],
 
-    [EditTodo, (state: TodoAppModel, { value }) => evolve({
+    [EditTodo, (state, { value }) => evolve({
       todos: map(cond([
         [propEq('id', value), evolve({ editing: not })],
         [T, identity]
