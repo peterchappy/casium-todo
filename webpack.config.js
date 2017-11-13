@@ -11,23 +11,29 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.tsx',
+
+  devServer: {
+    inline: true,
+    historyApiFallback: true,
+    disableHostCheck: true,
+  },
+
+  context: path.resolve('.'),
+
   output: {
     path: path.resolve('dist'),
     filename: 'index_bundle.js'
   },
   module: {
     loaders: [{
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.jsx$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
+      test: /\.[tj]sx?$/,
+      loader: 'awesome-typescript-loader',
+      exclude: /node_modules/
+    }]
   },
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [HtmlWebpackPluginConfig],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
+  }
 }
