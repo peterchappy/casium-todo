@@ -92,11 +92,9 @@ export default container<TodoAppModel>({
     <App
       todos={todos}
       addTodo={emit(AddTodo)}
-      actions={{
-        deleteTodo: emit(DeleteTodo),
-        completeTodo: emit(CompleteTodo),
-        editTodo: emit(EditTodo),
-      }}
+      deleteTodo={emit(DeleteTodo)}
+      completeTodo={emit(CompleteTodo)}
+      editTodo={emit(EditTodo)}
       clearCompleted={emit(ClearCompleted)}
       onShow={emit(ShowFilter)}
       filter={filter}

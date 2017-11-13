@@ -7,15 +7,17 @@ import { Todo, TodoFilter } from './model';
 type AppProps = {
   todos: Array<Todo>,
   addTodo: () => any,
-  actions: Object,
   onShow: () => any,
   clearCompleted: () => any,
   filter: TodoFilter,
+  deleteTodo: () => any,
+  completeTodo: () => any,
+  editTodo: () => any,
 };
 
-export default ({ todos, actions = {}, filter, onShow, addTodo, clearCompleted }: AppProps) => (
+export default ({ addTodo, ...props }: AppProps) => (
   <div>
     <Header addTodo={addTodo} />
-    <MainSection { ...{ todos, actions, filter, onShow, clearCompleted} } />
+    <MainSection { ...props } />
   </div>
 );

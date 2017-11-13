@@ -38,21 +38,23 @@ const renderFooter = (completedCount, todos, filter, onShow, clearCompleted) => 
 
 type MainSectionProps = {
   todos: Array<Todo>;
-  actions: Object;
   filter: TodoFilter;
   onShow: () => any;
   clearCompleted: () => any;
+  deleteTodo: () => any;
+  completeTodo: () => any;
+  editTodo: () => any;
 };
 
-export default ({ todos, actions, filter, onShow, clearCompleted }: MainSectionProps) => {
+export default ({ todos, filter, onShow, clearCompleted, ...props }: MainSectionProps) => {
   const filteredTodos = todos.filter(TODO_FILTERS[filter]);
   const completedCount = todos.reduce((count, todo) => todo.completed ? count + 1 : count, 0);
   return (
     <section className='main'>
-      {renderToggleAll(completedCount, todos, actions)}
+      {renderToggleAll(completedCount, todos, props)}
       <ul className='todo-list'>
         {filteredTodos.map((todo, i) =>
-          <TodoItem delegate={['todos', i]} key={todo.id} todo={todo} {...actions} />
+          <TodoItem delegate={['todos', i]} key={todo.id} todo={todo} {...props} />
         )}
       </ul>
       {renderFooter(completedCount, todos, filter, onShow, clearCompleted)}
