@@ -4,8 +4,8 @@ import {
 } from 'ramda';
 import * as React from 'react';
 
-import { container } from 'architecture';
-import Message, { Activate } from 'architecture/message';
+import { container } from 'casium';
+import Message, { Activate } from 'casium/message';
 
 import { TodoFilter, TodoAppModel } from './model';
 import App from './index';

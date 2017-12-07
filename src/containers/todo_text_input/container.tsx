@@ -1,8 +1,8 @@
 import { is, merge } from 'ramda';
 import * as React from 'react';
 
-import { container } from 'architecture';
-import Message from 'architecture/message';
+import { container } from 'casium';
+import Message from 'casium/message';
 
 import TodoTextInput from './index';
 

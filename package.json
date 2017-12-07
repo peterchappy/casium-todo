@@ -10,8 +10,8 @@
     "build": "webpack --display-error-details"
   },
   "dependencies": {
-    "architecture": "git://github.com/ai-labs-team/architecture.git#master",
     "babel-eslint": "7",
+    "casium": "^1.0.1",
     "classnames": "^2.2.5",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
